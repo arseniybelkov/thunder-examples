@@ -1,7 +1,7 @@
 import numpy as np
 from connectome import Transform
 from torch.utils.data import Dataset
-
+from imops import zoom
 from .functional import normalize_unit, rotate_totalsegm
 
 
@@ -11,7 +11,18 @@ class RotateTotalsegm(Transform):
         return rotate_totalsegm(image)
     
     def liver(liver):
-        return liver
+        return rotate_totalsegm(liver)
+    
+    
+class Zoom(Transform):
+    _n: int = 2
+    __inherit__ = True
+    
+    def image(image, _n) -> np.ndarray:
+        return zoom(image.astype(np.float32), _n).round()
+    
+    def liver(liver, _n) -> np.ndarray:
+        return np.uint8(zoom(liver.astype(np.float32), _n) > 0.5)
 
 
 class NormalizeCT(Transform):
