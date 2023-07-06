@@ -13,6 +13,9 @@ class RotateTotalsegm(Transform):
     def liver(liver):
         return rotate_totalsegm(liver)
     
+    def spleen(spleen):
+        return rotate_totalsegm(spleen)
+    
     
 class Zoom(Transform):
     _n: int = 2
@@ -23,6 +26,9 @@ class Zoom(Transform):
     
     def liver(liver, _n) -> np.ndarray:
         return np.uint8(zoom(liver.astype(np.float32), _n) > 0.5)
+    
+    def spleen(spleen, _n) -> np.ndarray:
+        return np.uint8(zoom(spleen.astype(np.float32), _n) > 0.5)
 
 
 class NormalizeCT(Transform):
