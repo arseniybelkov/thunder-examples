@@ -4,7 +4,7 @@ from thunder.predict import Predictor
 from toolz import compose
 
 
-class DecoratedPredictor(Predictor):
+class Decorated(Predictor):
     def __init__(self, *decorators: Callable):
         super().__init__()
         self.decorators = compose(*decorators)
